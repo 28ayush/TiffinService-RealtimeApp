@@ -18,12 +18,24 @@ nav li a:hover {
   color: #FE5F1E;
 }
 
+.herop:hover {
+  transform: rotate(3deg);
+}
+
 section.hero {
   background: #ebe8e8;
 }
 
 .small {
   background: #ebe8e8;
+}
+
+.btn-primary {
+  background: #FE5F1E;
+  transition: all 0.3s ease-in-out;
+}
+.btn-primary:hover {
+  background: #b23301;
 }
 
 .add-to-cart {
@@ -41,4 +53,20 @@ section.hero {
   row-gap: 40px;
   -moz-column-gap: 20px;
        column-gap: 20px;
+}
+
+.cart {
+  background: #ebe8e8;
+}
+
+.amount {
+  color: #FE5F1E;
+}
+
+.colori {
+  color: #FE5F1E;
+  transition: all 0.3s ease-in-out;
+}
+.colori:hover {
+  color: #232323;
 }

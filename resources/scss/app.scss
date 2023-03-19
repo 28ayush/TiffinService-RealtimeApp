@@ -14,9 +14,14 @@ nav li:last-child a{
 }
 nav li a{
     transition:$smooth;
-    ;
+    
     &:hover{
         color: $primary;
+    }
+}
+.herop{
+    &:hover{
+     transform:rotate(3deg);
     }
 }
 section.hero{
@@ -24,6 +29,13 @@ section.hero{
 }
 .small{
     background: $secondary;
+}
+.btn-primary{
+    background: $primary;
+    transition: $smooth;
+    &:hover{
+        background: $primary-hover;
+    }
 }
 .add-to-cart{
     border: 2px solid $primary;
@@ -38,4 +50,17 @@ section.hero{
 .grid{
     row-gap: 40px;
     column-gap: 20px;
+}
+.cart{
+    background: $secondary;
+}
+.amount{
+color:$primary;
+}
+.colori{
+    color: $primary;
+    transition: $smooth;
+    &:hover{
+        color:$dark;
+    }
 }

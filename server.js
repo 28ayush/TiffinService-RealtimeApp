@@ -10,11 +10,21 @@ app.set('view engine','ejs');
 app.set('views',path.join(__dirname+'/resources/views'));
 //assests
 app.use(express.static("public"));
+app.use(expressLayouts);
 
 app.get('/',(req,res)=>{
     res.render('home');
 })
-app.use(expressLayouts);
+app.get('/login',(req,res)=>{
+    res.render('auth/login');
+})
+
+app.get('/register',(req,res)=>{
+    res.render('auth/register');
+})
+app.get('/cart',(req,res)=>{
+    res.render('customers/cart');
+})
 
 app.listen(3000,()=>{
     console.log(`Listening on Port ${PORT}`);
