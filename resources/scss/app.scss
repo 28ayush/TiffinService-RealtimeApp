@@ -1,4 +1,6 @@
 @import './variables';
+@import '~noty/src/noty.scss';
+@import '~noty/src/themes/mint.scss';
 
 body{
     font-family: 'Lato',sans-serif;
@@ -21,7 +23,7 @@ nav li a{
 }
 .herop{
     &:hover{
-     transform:rotate(3deg);
+     transform:rotate(5deg);
     }
 }
 section.hero{

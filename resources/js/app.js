@@ -1,1 +1,27 @@
-console.log("hello from appJS");
+import axios from 'axios';
+import Noty from 'noty';
+
+let addToCart=document.querySelectorAll('.add-to-cart');
+let cartCounter=document.querySelector('#cartCounter');
+function updateCart(pizza)
+{
+    axios.post('/update-cart',pizza).then(res=>{
+        cartCounter.innerText=res.data.totalQty;
+        new Noty({
+            type:'success',
+            timeout: 1000,
+            text: "Item added successfully",
+            progressBar:false
+          }).show();
+
+    }).catch(err=>{
+        console.log(err);
+    })
+}
+
+addToCart.forEach((btn)=>{
+        btn.addEventListener('click',(e)=>{
+                let pizza=JSON.parse(btn.dataset.pizza);
+                updateCart(pizza);
+        })
+})

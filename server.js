@@ -1,30 +1,60 @@
+require('dotenv').config();
 const express=require('express');
 const app=express();
+const bodyParser = require('body-parser')
 const ejs=require('ejs');
 const expressLayouts=require('express-ejs-layouts');
 const path=require('path');
+const fs=require('fs');
 const PORT=process.env.PORT || 3000;
+const mongoose=require('mongoose');
+const session =require('express-session');
+const flash=require('express-flash');
+const MongoDbStore=require('connect-mongo');
+
+//database connection
+
+const url='mongodb://localhost:27017/pizza';
+
+const main=async ()=>{
+    await mongoose.connect(url);
+    console.log("connected...");
+}
+main(); 
 
 
+//set template
 app.set('view engine','ejs');
 app.set('views',path.join(__dirname+'/resources/views'));
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+// parse application/json
+app.use(bodyParser.json())
+
+//session config
+app.use(session({
+    secret:process.env.COOKIE_SECRET,
+    resave:false,
+    store:MongoDbStore.create({
+        mongoUrl:url
+    }),
+    saveUninitialized:false,
+    cookie:{maxAge:1000*60*60*24} //24hrs
+}))
+app.use(flash());
+
+//global middleware
+app.use((req,res,next)=>{
+    res.locals.session=req.session;
+    next();
+})
 //assests
 app.use(express.static("public"));
+// app.use(express.json());
 app.use(expressLayouts);
+require('./routes/web')(app);
 
-app.get('/',(req,res)=>{
-    res.render('home');
-})
-app.get('/login',(req,res)=>{
-    res.render('auth/login');
-})
-
-app.get('/register',(req,res)=>{
-    res.render('auth/register');
-})
-app.get('/cart',(req,res)=>{
-    res.render('customers/cart');
-})
 
 app.listen(3000,()=>{
     console.log(`Listening on Port ${PORT}`);
