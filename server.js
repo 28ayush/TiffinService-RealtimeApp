@@ -11,7 +11,7 @@ const mongoose=require('mongoose');
 const session =require('express-session');
 const flash=require('express-flash');
 const MongoDbStore=require('connect-mongo');
-
+const passport= require('passport');
 //database connection
 
 const url='mongodb://localhost:27017/pizza';
@@ -21,11 +21,12 @@ const main=async ()=>{
     console.log("connected...");
 }
 main(); 
-
+ 
 
 //set template
 app.set('view engine','ejs');
 app.set('views',path.join(__dirname+'/resources/views'));
+
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -42,16 +43,23 @@ app.use(session({
     saveUninitialized:false,
     cookie:{maxAge:1000*60*60*24} //24hrs
 }))
-app.use(flash());
+//passport config
+const passportInit=require('./app/config/passport');
+passportInit(passport);
+app.use(passport.initialize())
+app.use(passport.session())
 
+app.use(flash());
 //global middleware
 app.use((req,res,next)=>{
     res.locals.session=req.session;
+    res.locals.user=req.user;
     next();
 })
 //assests
 app.use(express.static("public"));
-// app.use(express.json());
+app.use(express.json());
+app.use(express.urlencoded({extended:false}))
 app.use(expressLayouts);
 require('./routes/web')(app);
 
