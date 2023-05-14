@@ -49,13 +49,13 @@ passportInit(passport);
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.use(flash());
 //global middleware
 app.use((req,res,next)=>{
     res.locals.session=req.session;
     res.locals.user=req.user;
     next();
 })
+app.use(flash());
 //assests
 app.use(express.static("public"));
 app.use(express.json());

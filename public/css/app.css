@@ -311,3 +311,7 @@ section.hero {
 .colori:hover {
   color: #232323;
 }
+
+a.link {
+  color: #FE5F1E;
+}
