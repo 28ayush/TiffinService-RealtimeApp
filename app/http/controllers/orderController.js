@@ -1,4 +1,4 @@
-const { cache } = require('ejs');
+
 const Order=require('../../models/order')
 const moment=require('moment');
 function orderController()
@@ -17,10 +17,16 @@ function orderController()
             address:address
           })
         
-          order.save().then(()=>{
-            req.flash('success','successfully ordered !')
-            delete req.session.cart
-            res.redirect('/customer/orders');
+          order.save().then((result)=>{
+            Order.populate(result,{path:'customerId'}).then(placeOrder=>{
+              req.flash('success','successfully ordered !')
+              delete req.session.cart
+              //emit
+              const eventEmitter=req.app.get('eventEmitter');
+              eventEmitter.emit('orderPlaced',placeOrder);
+              res.redirect('/customer/orders');
+            })
+        
           }).catch(err=>{
             req.flash('error','Something went wrong');
             res.redirect('/cart');
@@ -31,9 +37,20 @@ function orderController()
             const orders=await Order.find({
                 customerId:req.user
             },null,{sort:{'createdAt':-1}})
-             
+          
+           
             res.header('Cache-Control','no-cache,private,no-store,must-revalidate,max-stale=0,post-check=0,pre-check=0')
             res.render('customers/orders',{orders:orders,moment:moment})
+        },
+        async show(req,res){
+          const order=await Order.findById(req.params._id);
+          //authorize user
+      
+          if(req.user._id.toString()===order.customerId.toString()){
+            return res.render('customers/singleOrder',{order})
+          }
+           return res.redirect('/');
+          
         }
 
     }

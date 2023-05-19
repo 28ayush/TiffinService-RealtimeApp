@@ -12,6 +12,7 @@ const session =require('express-session');
 const flash=require('express-flash');
 const MongoDbStore=require('connect-mongo');
 const passport= require('passport');
+const Emitter=require('events');
 //database connection
 
 const url='mongodb://localhost:27017/pizza';
@@ -32,6 +33,10 @@ app.set('views',path.join(__dirname+'/resources/views'));
 app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
+
+//event emiiter
+const eventEmitter=new Emitter()
+app.set('eventEmitter',eventEmitter);
 
 //session config
 app.use(session({
@@ -61,9 +66,29 @@ app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({extended:false}))
 app.use(expressLayouts);
+
 require('./routes/web')(app);
+app.use((req,res)=>{
+    res.status(404).render('error/404')
+})
 
 
-app.listen(3000,()=>{
+const server=app.listen(3000,()=>{
     console.log(`Listening on Port ${PORT}`);
 });
+
+// socket
+const io=require('socket.io')(server);
+io.on('connection',(socket)=>{
+    //join 
+    socket.on('join',(orderId)=>{
+        socket.join(orderId)
+    })
+})
+
+eventEmitter.on('orderUpdated',(data)=>{
+    io.to(`order_${data.id}`).emit('orderUpdated',data)
+})
+eventEmitter.on('orderPlaced',(data)=>{
+    io.to('adminRoom').emit('orderPlaced',data)
+})

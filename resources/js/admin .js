@@ -1,8 +1,8 @@
 import axios from 'axios'
 import moment from 'moment'
+import Noty from 'noty'
 
-
-export function initAdmin(){
+export function initAdmin(socket){
     const orderTableBody=document.querySelector('#orderTableBody')
     let orders=[]
     let markup
@@ -79,4 +79,15 @@ export function initAdmin(){
         `
         }).join('')
     }
+    socket.on('orderPlaced',(order)=>{
+        new Noty({
+            type:'success',
+            timeout: 700,
+            text: "New Order!",
+            progressBar:false
+          }).show();
+          orders.unshift(order)
+          orderTableBody.innerHTML=''
+          orderTableBody.innerHTML=generateMarkup(orders)
+    })
 }
