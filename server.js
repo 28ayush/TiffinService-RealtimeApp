@@ -15,7 +15,7 @@ const passport= require('passport');
 const Emitter=require('events');
 
 //database connection
-const url='mongodb://localhost:27017/pizza';
+const url='mongodb+srv://ayushvarshney:Ayush@cluster0.2xf9lkg.mongodb.net/?retryWrites=true&w=majority&appName=AtlasApp';
 
 const main=async ()=>{
     await mongoose.connect(url);
