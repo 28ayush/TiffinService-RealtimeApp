@@ -21,11 +21,21 @@ nav li a{
         color: $primary;
     }
 }
-.herop{
-    &:hover{
-     transform:rotate(5deg);
-    }
-}
+.rotate {
+    // animation: rotation 20s infinite ;
+      mix-blend-mode: darken;
+     filter: contrast(1);
+   
+  }
+  
+//   @keyframes rotation {
+//     from {
+//       transform: rotate(0deg);
+//     }
+//     to {
+//       transform: rotate(359deg);
+//     }
+//   }
 section.hero{
     background:$secondary;
 }

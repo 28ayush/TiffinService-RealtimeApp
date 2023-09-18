@@ -87,25 +87,42 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 
 var addToCart = document.querySelectorAll('.add-to-cart');
 var cartCounter = document.querySelector('#cartCounter');
+// let deleteCart=document.querySelector('.deleteCart');
+
 function updateCart(pizza) {
   axios__WEBPACK_IMPORTED_MODULE_3__["default"].post('/update-cart', pizza).then(function (res) {
     cartCounter.innerText = res.data.totalQty;
     new (noty__WEBPACK_IMPORTED_MODULE_0___default())({
       type: 'success',
-      timeout: 700,
-      text: "Item added successfully",
-      progressBar: false
+      timeout: 800,
+      text: "Item added successfully ",
+      layout: 'topLeft',
+      progressBar: true
     }).show();
   })["catch"](function (err) {
     console.log(err);
   });
 }
+// function dCart(pizza)
+// {
+//     axios.post('/delete-cart',pizza).then(res=>{
+//         console.log(res.data);
+//         cartCounter.innerText=res.data.totalQty;
+//     }).catch(err=>{
+//         console.log(err);
+//     })
+// }
 addToCart.forEach(function (btn) {
   btn.addEventListener('click', function (e) {
     var pizza = JSON.parse(btn.dataset.pizza);
     updateCart(pizza);
   });
 });
+
+// deleteCart.addEventListener('click',(e)=>{
+//         let pizza=JSON.parse(deleteCart.dataset.pizza);
+//         dCart(pizza);
+// })
 
 // remove alert message
 var alertMsg = document.querySelector('#success-alert');

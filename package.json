@@ -1,11 +1,12 @@
 {
   "name": "pizzaweb",
   "version": "1.0.0",
-  "description": "This is Real time pizza ordering website. ",
+  "description": "This is Real time tiffin ordering website. ",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "development": "mix",
+    "start":"node server.js",
     "watch": "npx mix watch",
     "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --config=node_modules/laravel-mix/setup/webpack.config.js"
   },

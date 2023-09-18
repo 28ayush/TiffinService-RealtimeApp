@@ -1,3 +1,4 @@
+
 function cartController(){
     return {
         index(req,res){
@@ -31,7 +32,22 @@ function cartController(){
                 
             }
             return res.json({totalQty:req.session.cart.totalQty})
+        },
+        delete(req,res){
+            let cart=req.session.cart;
+            cart.totalQty=cart.totalQty-cart.items[req.body.prodId].qty;
+            cart.totalPrice=cart.totalPrice-(cart.items[req.body.prodId].item.price*cart.items[req.body.prodId].qty);
+            delete cart.items[req.body.prodId];
+
+            if(Object.values(cart.items).length==0)
+            {
+              delete req.session.cart;
+            }
+          
+            res.redirect('/cart');
+          
         }
-    }
+     }
 }
+
 module.exports=cartController

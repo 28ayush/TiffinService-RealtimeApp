@@ -259,8 +259,9 @@ nav li a:hover {
   color: #FE5F1E;
 }
 
-.herop:hover {
-  transform: rotate(5deg);
+.rotate {
+  mix-blend-mode: darken;
+  filter: contrast(1);
 }
 
 section.hero {
