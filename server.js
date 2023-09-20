@@ -15,7 +15,7 @@ const passport= require('passport');
 const Emitter=require('events');
 
 //database connection
-const url='mongodb+srv://ayushvarshney:Ayush@cluster0.2xf9lkg.mongodb.net/?retryWrites=true&w=majority&appName=AtlasApp';
+const url=process.env.MONGO_URL;
 
 const main=async ()=>{
     await mongoose.connect(url);
