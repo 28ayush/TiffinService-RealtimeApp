@@ -8,7 +8,7 @@
     "development": "mix",
     "start":"node server.js",
     "watch": "npx mix watch",
-    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --config=node_modules/laravel-mix/setup/webpack.config.js"
+    "production": "mix --production"
   },
   "author": "Ayush",
   "license": "ISC",
