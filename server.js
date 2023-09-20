@@ -8,20 +8,25 @@ const path=require('path');
 const fs=require('fs');
 const PORT=process.env.PORT || 3000;
 const mongoose=require('mongoose');
+//database connection
+const url=process.env.MONGO_URL;
+
+const main=async ()=>{
+    try {
+        const conn = await mongoose.connect(url);
+        console.log(`Mongo db connected`);
+    } catch (error) {
+        console.log(error);
+        process.exit(1);
+    }
+}
+main(); 
 const session =require('express-session');
 const flash=require('express-flash');
 const MongoDbStore=require('connect-mongo');
 const passport= require('passport');
 const Emitter=require('events');
 
-//database connection
-const url=process.env.MONGO_URL;
-
-const main=async ()=>{
-    await mongoose.connect(url);
-    console.log("connected...");
-}
-main(); 
  
 
 //set template
