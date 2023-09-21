@@ -1,31 +1,45 @@
+<section class="hero py-16">
 
-<section class="hero py-16" >
-    <div class="container mx-auto flex items-center justify-between">
-        <div class="w-1/2 ml-36">
+    <div class="container mx-auto flex items-center justify-around">
+        <div class="w-1/2">
             <h6 class="text-lg"><em>Are you hungry?</em></h6>
             <h1 class="text-3xl md:text-6xl font-bold">Don't wait !!</h1>
-           <a href="#orderNow"> <button class="px-6 py-2 rounded-full text-white font-bold mt-4 btn-primary">Order Now</button></a>
+            <a href="#orderNow"> <button class="px-6 py-2 rounded-full text-white font-bold mt-4 btn-primary">Order
+                    Now</button></a>
         </div>
         <div class="w-1/2">
-            <img class="rotate"  src="/img/tiffin-service-man.jpg">
+            <img class="rotate" src="/img/tiffin-service-man.jpg">
         </div>
     </div>
-  </section>
-
-  <section class="menu container mx-auto py-8">
-        <h1 class="text-xl font-bold mb-8 ml-20">TIFFIN MENU</h1>
-       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-12 gap-y-16">
+</section>
+<section id="About" class="py-10 container mx-auto">
+    <h1 class="py-5 text-3xl md:text-3xl font-bold flex items-center justify-around amount">Yumbox: Where Every Meal Is a Hug from
+        Home.</h1>
+        <h6 class="text-lg md:text-3xl"><em>Whether you're in the midst of a demanding semester or tackling a busy workday, Yumbox ensures you never miss out
+            on the warmth and care that only a mother's food can provide. With us, you're not just a customer; you're a part
+            of our extended family.</em></h6>
+    
+</section>
+<hr class="mt-5 flex-grow border-t border-gray-300">
+<section class="menu container mx-auto py-8">
+    <h1 class="text-xl font-bold mb-8 ml-20">TIFFIN MENU</h1>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-12 gap-y-16">
 
         <% pizzas.forEach(function(pizza){ %>
-            <div id="orderNow"  class="w-full  md:w-64">
+            <div id="orderNow" class="w-full  md:w-64">
                 <img class="h-40 mb-4 mx-auto rounded-lg" src="/img/<%=pizza.image%>" alt="">
-    
+
                 <div class="text-center">
-                    <h2 class="mb-4 text-lg"><%=pizza.name%></h2>
-                    <span class="small py-1 px-4 rounded-full uppercase text-xs"><%=pizza.size%></span>
+                    <h2 class="mb-4 text-lg">
+                        <%=pizza.name%>
+                    </h2>
+                    <span class="small py-1 px-4 rounded-full uppercase text-xs">
+                        <%=pizza.size%>
+                    </span>
                     <div class="flex items-center justify-around mt-6">
                         <span class="font-bold text-lg">Rs<%=pizza.price%></span>
-                        <button data-pizza="<%=JSON.stringify(pizza)%>"   class="add-to-cart py-1 px-6 rounded-full flex items-center font-bold">
+                        <button data-pizza="<%=JSON.stringify(pizza)%>"
+                            class="add-to-cart py-1 px-6 rounded-full flex items-center font-bold">
                             <span>+</span>
                             <span class="ml-4">Add</span>
                         </button>
@@ -33,7 +47,8 @@
                 </div>
             </div>
 
-        <% })%>
+            <% })%>
 
-       </div>
-  </section>
+    </div>
+</section>
+<!-- component -->
